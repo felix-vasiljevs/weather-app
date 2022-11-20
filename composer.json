@@ -1,0 +1,7 @@
+{
+    "require": {
+        "nesbot/carbon": "^2.63",
+        "ext-readline": "*",
+      "ext-json": "*"
+    }
+}
