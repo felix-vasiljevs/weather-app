@@ -1,27 +1,46 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace App;
 
 class Weather
 {
-    private string $apiKey = 'f6860ecc5d781f1a12003161a1ecac04';
-    private int $degrees;
+    private string $locationName;
+    private float $temperature;
+    private float $feelsLike;
     private int $humidity;
+    private float $wind;
 
-    public function getWeatherData (Location $location): int
+    public function __construct(string $locationName, float $temperature, float $feelsLike, int $humidity, float $wind)
     {
-        $weatherResponse = file_get_contents("https://api.openweathermap.org/data/2.5/weather/?lat={$location->getLat()}&lon={$location->getLon()}&appid={$this->apiKey}&units=metric");
-        return json_decode($weatherResponse);
-
+        $this->locationName = $locationName;
+        $this->temperature = $temperature;
+        $this->feelsLike = $feelsLike;
+        $this->humidity = $humidity;
+        $this->wind = $wind;
     }
 
-    public function getDegrees(): int
+    public function getLocationName(): string
     {
-        return $this->degrees;
+        return $this->locationName;
+    }
+
+    public function getTemperature(): ?float
+    {
+        return $this->temperature;
+    }
+
+    public function getFeelsLike(): float
+    {
+        return $this->feelsLike;
     }
 
     public function getHumidity(): int
     {
         return $this->humidity;
+    }
+
+    public function getWind(): float
+    {
+        return $this->wind;
     }
 }

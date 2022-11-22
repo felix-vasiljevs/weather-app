@@ -1,56 +1,32 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace App;
 
 class Location
 {
-    private string $apiKey = 'f6860ecc5d781f1a12003161a1ecac04';
-    private int $lat;
-    private int $lon;
-    private string $location;
+    private string $name;
+    private float $lat;
+    private float $lon;
 
-    public function __construct(string $location)
+    public function __construct(string $name, float $lat, float $lon)
     {
-        $this->location = $location;
+        $this->name = $name;
+        $this->lat = $lat;
+        $this->lon = $lon;
     }
 
-    public function getApiKey(): string
+    public function getName(): string
     {
-        return $this->apiKey;
+        return $this->name;
     }
 
-    public function getLocation(): string
+    public function getLat(): float
     {
-        $apiUrl = file_get_contents("https://api.openweathermap.org/geo/1.0/direct?q={$this->location}&limit=1&appid={$this->apiKey}");
-        $cityData = json_decode($apiUrl);
-        return $cityData[0];
-    }
-
-    public function getLat(): int
-    {
-        $apiUrl = file_get_contents("https://api.openweathermap.org/geo/1.0/direct?q={$this->location}&limit=1&appid={$this->apiKey}");
-        $cityData = json_decode($apiUrl);
-
-        $this->lat = ' ';
-        foreach ($cityData as $datum) {
-            if ($datum === "lat") {
-                $this->lat .= $datum;
-            }
-        }
         return $this->lat;
     }
 
-    public function getLon(): int
+    public function getLon(): float
     {
-        $apiUrl = file_get_contents("https://api.openweathermap.org/geo/1.0/direct?q={$this->location}&limit=1&appid={$this->apiKey}");
-        $cityData = json_decode($apiUrl);
-
-        $this->lon = ' ';
-        foreach ($cityData as $datum) {
-            if ($datum === "lon") {
-                $this->lon  .= $datum;
-            }
-        }
         return $this->lon;
     }
 }

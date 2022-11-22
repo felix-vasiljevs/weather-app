@@ -1,14 +1,53 @@
 <?php
 
-use App\Weather;
-use App\Location;
+require_once 'vendor/autoload.php';
 
-$weather = new Weather();
+use App\ApiClient;
 
-$citySelection = (string)readline("Type a city you are looking for: ") . PHP_EOL;
-$city = new Location($citySelection);
-$apiUrl = file_get_contents("https://api.openweathermap.org/geo/1.0/direct?q={$citySelection}&limit=1&appid={$city->getApiKey()}");
-$cityData = json_decode($apiUrl);
-var_dump($cityData[0]);
+$apiKey = 'f6860ecc5d781f1a12003161a1ecac04';
 
-echo "Currently {$weather->getDegrees()} degrees in celsius and humidity is {$weather->getHumidity()} in city: {$citySelection}" . PHP_EOL;
+$apiClient = new ApiClient($apiKey);
+$citySelection = "Type a city name you are looking for: ";
+
+$weatherInRiga = $apiClient->getWeather("Riga");
+
+$balticCapitalCities = ["Riga", "Vilnius", "Tallinn"];
+
+//date_default_timezone_set('Europe/Riga');
+//$date = date('h:i:s)');
+//$message = "Currently in {$weather->getLocationName()} is {$weather->getTemperature()} (feels like {$weather->getFeelsLike()})/ ({$weather->getHumidity()}%) and the wind speed is {$weather->getWind()} m/s" . PHP_EOL;
+
+?>
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>WeatherApp</title>
+</head>
+<body>
+<h2>Welcome traveler!</h2>
+<form action="index.php">
+    <h4>
+        <?php echo "Currently in {$weatherInRiga->getLocationName()} is &#127777 {$weatherInRiga->getTemperature()}°C (feels like {$weatherInRiga->getFeelsLike()}°C &#129398;), &#128167 humidity = {$weatherInRiga->getHumidity()}% and &#127788 the wind speed = {$weatherInRiga->getWind()} m/s"; ?>
+    </h4>
+
+    <a href="/?city=Riga">Riga</a> | <a href="/?city=Vilnius">Vilnius</a> | <a href="/?city=Tallinn">Tallinn</a>
+    <br>
+        <?php $weatherInBaltics = $apiClient->getWeather($_GET["city"]); ?>
+        <?php echo "Currently in {$weatherInBaltics->getLocationName()} is &#127777 {$weatherInBaltics->getTemperature()} (feels like {$weatherInBaltics->getFeelsLike()})/ &#128167 humidity = {$weatherInBaltics->getHumidity()}% and &#127788 the wind speed is {$weatherInBaltics->getWind()} m/s"; ?>
+    <br>
+    <br><label for="city"><?php echo $citySelection; ?></label><br>
+    <br><input type="text" name="city"><br>
+    <input type="submit" value="Search">
+    <br>
+    <br>
+        <?php $weather = $apiClient->getWeather($_GET['city']); ?>
+        <?php echo "Currently in {$weather->getLocationName()} is &#127777 {$weather->getTemperature()}°C (feels like {$weather->getFeelsLike()}°C)/ &#128167 humidity = {$weather->getHumidity()}% and &#127788 the wind speed is {$weather->getWind()} m/s"; ?>
+    <br>
+</form>
+</body>
+</html>
