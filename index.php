@@ -41,7 +41,7 @@ $date = date('h:i:s)');
     </h1>
 <form action="index.php" class="form">
     <h4 class="h4">
-        <?php echo "Currently {$date} in {$weatherInRiga->getLocationName()} is &#127777 {$weatherInRiga->getTemperature()}°C (feels like {$weatherInRiga->getFeelsLike()}°C &#129398;), &#128167 humidity = {$weatherInRiga->getHumidity()}% and &#127788 the wind speed = {$weatherInRiga->getWind()} m/s"; ?>
+        <?php echo "Currently ({$date} in {$weatherInRiga->getLocationName()} is &#127777 {$weatherInRiga->getTemperature()}°C (feels like {$weatherInRiga->getFeelsLike()}°C &#129398;), &#128167 humidity = {$weatherInRiga->getHumidity()}% and &#127788 the wind speed = {$weatherInRiga->getWind()} m/s"; ?>
     </h4>
 
     <ul>
