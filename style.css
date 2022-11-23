@@ -1,0 +1,42 @@
+.h1 {
+    font-size: 30px;
+    color: black;
+    font-weight: normal;
+    font-family: "Courier 10 Pitch", monospace;
+    font-style: italic;
+    text-align: center;
+}
+
+.h4 {
+    color: coral;
+    font-weight: normal;
+    font-family: "Courier 10 Pitch", monospace;
+    text-align: center;
+}
+
+.bg {
+    background-image: url("WeatherApp_background.jpg");
+    width: 100%;
+    height: 200px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.box {
+    width: 100%;
+    height: 100%;
+    background-color: aquamarine;
+    background-image: url("background.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.body {
+    font-family: "Courier 10 Pitch", monospace;
+}
+
+.form {
+    text-align: left;
+}
